@@ -1,0 +1,10 @@
+{% extends "stocks/layout.html" %}
+
+{% block body %}
+    <h1>{{stock.companyName}}</h1>
+    <ul>
+        <li>Open: ${{open}}</li>
+        <li>High: ${{dayhigh}}</li>
+        <li>Low: ${{daylow}}</li>
+    </ul>
+{% endblock %}

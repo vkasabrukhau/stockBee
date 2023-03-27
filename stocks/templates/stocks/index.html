@@ -1,0 +1,14 @@
+{% extends "stocks/layout.html" %}
+
+{% block body %}
+    <h1>Stocks</h1>
+    <ul>
+        {% for stock in stocks %}
+            <li>
+                <a href="{% url 'stock' stock.id %}">
+                    {{stock.id}} {{stock.companyName}} ({{stock.stockCode}})
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
