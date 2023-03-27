@@ -1,6 +1,9 @@
 from django.shortcuts import render
-import yfinance as yf
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from .models import Stock
+from django import forms
+import yfinance as yf
 # Create your views here.
 
 def index(request):
@@ -8,17 +11,25 @@ def index(request):
         "stocks": Stock.objects.all()
     })
 
+def add(request):
+    if request.method == 'POST':
+        data = request.POST
+        stock = Stock(stockCode = data.get("stockCode"), companyName = data.get("companyName"))
+        stock.save()
+        return HttpResponseRedirect(reverse("index", args=()))
+    else:
+        return render(request, 'stocks/add.html')
+
 def stock(request, stock_id):
     stock = Stock.objects.get(id=stock_id)
     ticker = yf.Ticker(str(stock.stockCode))
-    print(stock.stockCode)
     fastInfo = ticker.fast_info
-    print(fastInfo.open)
-    print(fastInfo.day_high)
-    print(fastInfo.day_low)
     return render(request, "stocks/stock.html", {
         "stock": stock,
         "open": str(fastInfo.open),
         "dayhigh": str(fastInfo.day_high),
         "daylow": str(fastInfo.day_low),
+        "lastprice": str(fastInfo.last_price),
+        "share": str(fastInfo.shares),
+        "currency": str(fastInfo.currency),
     })

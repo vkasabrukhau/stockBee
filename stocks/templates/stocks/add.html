@@ -1,0 +1,14 @@
+{% extends "stocks/layout.html" %}
+
+{% block body %}
+    <h1>Add a stock</h1>
+    <form action="{% url 'add' %}" method="post">
+        {% csrf_token %}
+        <label for="stockCode">Stock Code</label>
+        <input type="text" id="stockCode" name="stockCode">
+        <label for="companyName">Company Name</label>
+        <input type="text" id="companyName" name="companyName">
+        <input type="submit">
+    </form>
+<a href="{% url 'index' %}">View Stocks</a>
+{% endblock %}
