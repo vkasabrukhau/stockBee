@@ -8,7 +8,11 @@
         <input type="text" id="stockCode" name="stockCode">
         <label for="companyName">Company Name</label>
         <input type="text" id="companyName" name="companyName">
-        <input type="submit">
+        <button type="submit" class="btn btn-warning">
+            Add
+        </button>
     </form>
-<a href="{% url 'index' %}">View Stocks</a>
+    <button type="button" class="btn btn-primary" style="margin-left: 50px;">
+        <a href="{% url 'index' %}">View Stocks</a>
+    </button>
 {% endblock %}

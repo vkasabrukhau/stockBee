@@ -1,6 +1,7 @@
-ul{
+ul {
     padding: 0 !important;
     margin: 0 !important;
+    font-size: 18px;
 }
 
 li {
@@ -14,10 +15,28 @@ li {
     color: #FFFFFF;
 }
 
-a{
+a {
     font-style: normal;
     text-decoration: none;
     padding: none;
     margin: none;
     color: #FFFFFF;
+}
+
+h1 {
+    margin-left: 50px; 
+    color: #fff;
+}
+
+label{
+    color: #fff;
+    margin-right: 10px;
+}
+input{
+    margin-right: 10px;
+}
+form{
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

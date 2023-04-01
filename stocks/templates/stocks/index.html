@@ -1,12 +1,13 @@
 {% extends "stocks/layout.html" %}
+{% load static %}
 
 {% block body %}
     <h1>Stocks</h1>
-    <div class="row">
-        <div class="col-4" style="padding: 0; margin-left: 20px;">
+    <div class="row" style="margin-left: 50px;">
+        <div class="col-4" style="padding: 0;">
             <ul>
                 {% for stock in stocks %}
-                    <li>
+                    <li style="border-radius: 15px 0px 0px 15px">
                         <a href="{% url 'stock' stock.id %}">
                             {{stock.companyName}} ({{stock.stockCode}})
                         </a>
@@ -15,24 +16,36 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="col-2" style="padding: 0;">
+        <div class="col-1" style="padding: 0;">
             <ul style="padding: none;">
                 {% for i in percent_change %}
-                    <li style="display: flex; position: end">
-                        {{i}}%
+                    <li style="color: green;">
+                        {% if i > 0 %}
+                            <img src="{% static 'assets/greentriangle.png' %}" alt="" style="width: 20px;">
+                            <span style="color: green;">
+                                {{i}}%
+                            </span>
+                        {% elif 0 > i %}
+                            <img src="{% static 'assets/redtriangle.png' %}" alt="" style="width: 20px;">
+                            <span style="color: red;">
+                                {{i}}%
+                            </span>
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>
         </div>
-        <div class="col-2" style="padding: 0;">
+        <div class="col-1" style="padding: 0;">
             <ul style="padding: none;">
                 {% for i in last_prices %}
-                    <li>
+                    <li style="border-radius: 0px 15px 15px 0px">
                         ${{i}} 
                     </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
-    <a href="{% url 'add' %}">Add a Stock</a>
+    <button type="button" class="btn btn-primary" style="margin-left: 50px;">
+        <a href="{% url 'add' %}">Add a Stock</a>
+    </button>
 {% endblock %}
