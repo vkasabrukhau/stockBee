@@ -4,17 +4,28 @@ from django.urls import reverse
 from .models import Stock
 from django import forms
 import yfinance as yf
+import datetime
 # Create your views here.
 
+systemhour = 0
+now = datetime.datetime.now()
+currenthour = now.hour
+
+percent_change = []
+last_prices = []
+
+def stockUpdater(systemhour):
+    if systemhour != currenthour:
+        systemhour = currenthour
+        stocks = Stock.objects.all()
+        for stock in stocks:
+            ticker = yf.Ticker(str(stock.stockCode))
+            fastInfo = ticker.fast_info
+            percent_change.append(str(round(fastInfo.last_price/fastInfo.previous_close * 100 - 100, 3)))
+            last_prices.append(str(round(fastInfo.last_price, 3)))
+
 def index(request):
-    stocks = Stock.objects.all()
-    percent_change = []
-    last_prices = []
-    for stock in stocks:
-        ticker = yf.Ticker(str(stock.stockCode))
-        fastInfo = ticker.fast_info
-        percent_change.append(str(round(fastInfo.last_price/fastInfo.previous_close * 100 - 100, 3)))
-        last_prices.append(str(round(fastInfo.last_price, 3)))
+    stockUpdater(systemhour)
     return render(request, "stocks/index.html", {
         "stocks": Stock.objects.all(),
         "percent_change": percent_change,
