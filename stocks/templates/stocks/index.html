@@ -2,14 +2,37 @@
 
 {% block body %}
     <h1>Stocks</h1>
-    <ul>
-        {% for stock in stocks %}
-            <li>
-                <a href="{% url 'stock' stock.id %}">
-                    {{stock.id}} {{stock.companyName}} ({{stock.stockCode}})
+    <div class="row">
+        <div class="col-4" style="padding: 0; margin-left: 20px;">
+            <ul>
+                {% for stock in stocks %}
+                    <li>
+                        <a href="{% url 'stock' stock.id %}">
+                            {{stock.companyName}} ({{stock.stockCode}})
+                        </a>
+                    </li>
                 </a>
-            </li>
-        {% endfor %}
-    </ul>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-2" style="padding: 0;">
+            <ul style="padding: none;">
+                {% for i in percent_change %}
+                    <li style="display: flex; position: end">
+                        {{i}}%
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-2" style="padding: 0;">
+            <ul style="padding: none;">
+                {% for i in last_prices %}
+                    <li>
+                        ${{i}} 
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
     <a href="{% url 'add' %}">Add a Stock</a>
 {% endblock %}

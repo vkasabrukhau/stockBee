@@ -1,0 +1,23 @@
+ul{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+li {
+    list-style-type: none;
+    background-color: #1F1F1F;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    margin: none;
+    color: #FFFFFF;
+}
+
+a{
+    font-style: normal;
+    text-decoration: none;
+    padding: none;
+    margin: none;
+    color: #FFFFFF;
+}
