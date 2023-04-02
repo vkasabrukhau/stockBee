@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from django.urls import reverse
 from .models import Stock
 from django import forms
@@ -69,3 +71,9 @@ def stock(request, stock_id):
         "currency": str(fastInfo.currency),
         "percent_change": str(round(fastInfo.last_price/fastInfo.previous_close * 100 - 100, 3))
     })
+
+def signin(request):
+    return render(request, "stocks/signin.html")
+    
+def signup(request):
+    return render(request, "stocks/signup.html")
