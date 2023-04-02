@@ -10,28 +10,36 @@ import datetime
 now = datetime.datetime.now()
 currenthour = now.hour
 systemHour = 0
+percent_change = []
+last_prices = []
 
 def stockUpdater():
+    global systemHour
+    global currenthour
+    global percent_change
+    global last_prices
     if systemHour != currenthour:
+        print(systemHour)
         systemHour = currenthour
         stocks = Stock.objects.all()
-        percent_change = []
-        last_prices = []
         for stock in stocks:
             ticker = yf.Ticker(str(stock.stockCode))
             fastInfo = ticker.fast_info
-            percent_change.append(str(round(fastInfo.last_price/fastInfo.previous_close * 100 - 100, 3)))
+            percent_change.append(round(fastInfo.last_price/fastInfo.previous_close * 100 - 100, 3))
             last_prices.append(str(round(fastInfo.last_price, 3)))
 
 def index(request):
-    stocks = Stock.objects.all()
-    percent_change = []
-    last_prices = []
-    for stock in stocks:
-        ticker = yf.Ticker(str(stock.stockCode))
-        fastInfo = ticker.fast_info
-        percent_change.append(round(fastInfo.last_price/fastInfo.previous_close * 100 - 100, 3))
-        last_prices.append(str(round(fastInfo.last_price, 3)))
+    #stocks = Stock.objects.all()
+    #percent_change = []
+    #last_prices = []
+    #for stock in stocks:
+        #ticker = yf.Ticker(str(stock.stockCode))
+        #fastInfo = ticker.fast_info
+        #percent_change.append(round(fastInfo.last_price/fastInfo.previous_close * 100 - 100, 3))
+        #last_prices.append(str(round(fastInfo.last_price, 3)))
+    global percent_change
+    global last_prices
+    stockUpdater()
     return render(request, "stocks/index.html", {
         "stocks": Stock.objects.all(),
         "percent_change": percent_change,
