@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from .models import Stock
 from django import forms
@@ -73,7 +74,36 @@ def stock(request, stock_id):
     })
 
 def signin(request):
+    if(request == "POST"):
+        authenticate()
     return render(request, "stocks/signin.html")
     
 def signup(request):
-    return render(request, "stocks/signup.html")
+    if(request.method == 'POST'):
+        firstName = request.POST['firstname']
+        lastName = request.POST['lastname']
+        username = request.POST['username']
+        password = request.POST['password1']
+        password2 = request.POST['password2']
+        email = request.POST['email']
+        if(password == password2):
+            if(User.objects.filter(email=email).exists()):
+                messages.info(request, "Email already taken")
+                return redirect(request, 'signup')
+            elif(User.objects.filter(username=username).exists()):
+                messages.info(request, "Username already taken")
+                return redirect('signup')
+            else:
+                user = User.objects.create_user(username = username, email = email, password = password)
+                user.save()
+                user.first_name = firstName
+                user.last_name = lastName
+                user.save()
+                user_login = authenticate(username = username, password = password)
+                login(request, user)
+                return redirect('index')
+        else:
+            messages.info(request, 'Password Not Matching')
+            return redirect('signup')
+    else:
+        return render(request, "stocks/signup.html")

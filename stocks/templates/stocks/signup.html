@@ -8,27 +8,32 @@
                 {% csrf_token %}
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label for="fname" style="margin-bottom: 20px;">First Name</label>
-                    <input type="text" class="form-control" id="fname" aria-describedby="firstname">
+                    <input type="text" class="form-control" id="fname" aria-describedby="firstname" name="firstname">
                     <small id="firstnHelp" class="form-text text-muted" style="color: #fff!important;">Please write your full first name</small>
                 </div>
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label for="lname" style="margin-bottom: 20px;">Last Name</label>
-                    <input type="text" class="form-control" id="lname" aria-describedby="lastname">
+                    <input type="text" class="form-control" id="lname" aria-describedby="lastname" name="lastname">
                     <small id="lastnHelp" class="form-text text-muted" style="color: #fff!important;">Please write your full last name</small>
                 </div>
                 <div class="form-group" style="margin-bottom: 20px;">
-                    <label for="Username" style="margin-bottom: 20px;">Username</label>
-                    <input type="text" class="form-control" id="username" aria-describedby="email">
+                    <label for="username" style="margin-bottom: 20px;">Username</label>
+                    <input type="text" class="form-control" id="username" aria-describedby="email" name="username">
                     <small id="usernameHelp" class="form-text text-muted" style="color: #fff!important;">Something fun to label your profile</small>
                 </div>
                 <div class="form-group" style="margin-bottom: 20px;">
-                    <label for="Password" style="margin-bottom: 20px;">Password</label>
-                    <input type="password" class="form-control" id="password" aria-describedby="password">
+                    <label for="password" style="margin-bottom: 20px;">Password</label>
+                    <input type="password" class="form-control" id="password" aria-describedby="password" name="password1">
                     <small id="passwordHelp" class="form-text text-muted" style="color: #fff!important;">Not too long, not too short, not too simple either, juuuusst right</small>
                 </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="password2" style="margin-bottom: 20px;">Confirm Password</label>
+                    <input type="password" class="form-control" id="password2" aria-describedby="password" name="password2">
+                    <small id="passwordHelp" class="form-text text-muted" style="color: #fff!important;">Type in the same thing you typed up top</small>
+                </div>
                 <div class="form-group">
-                    <label for="Email" style="margin-bottom: 10px;">Email address</label>
-                    <input type="email" class="form-control" id="emailField" aria-describedby="email">
+                    <label for="email" style="margin-bottom: 10px;">Email address</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="email" name="email">
                     <small id="emailHelp" class="form-text text-muted"  style="color: #fff!important;">We'll never share your email with anyone else.</small>
                 </div>
                 <button type="submit" class="btn btn-primary" style="margin-top: 30px; width:100%;">Sign Up</button>
