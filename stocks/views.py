@@ -99,7 +99,7 @@ def signup(request):
                 return redirect('signup')
             else:
                 user = User.objects.create_user(username = username, email = email, password = password)
-                extendedUser = ExtendedUser(user = user, age = age, startingFinance = finances)
+                extendedUser = ExtendedUser.objects.create(user = user, age = age, startingFinance = finances)
                 extendedUser.save()
                 user.save()
                 user.first_name = firstName
@@ -118,9 +118,9 @@ def signup(request):
 @login_required
 def profile(request):
     u = request.user
-    extendeduser = u.ExtendedUser
+    extendeduser = u.extendeduser
     return render(request, "stocks/profile.html", {
-        "firstname": u.first_name,
+        "firstname": u.username,
         "lastname": u.last_name,
         "username": u.username,
         "email": u.email,

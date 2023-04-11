@@ -2,13 +2,13 @@
 {% load static %}
 {% block body %}
     <div class="row">
-        <div class="col-6">
+        <div class="col-6" style="margin-left: 50px;">
             <img src="" alt="">
-            <span>Welcome back {{firstname}} {{lastname}}</span>
+            <h2 style="color: white;">Welcome back {{firstname}}</h2>
             <ul>
-                <li class="profile_item">Email: <span>{{email}}</span></li>
-                <li class="profile_item">Profile Worth: <span>{{startingfinances}}</span></li>
-                <li class="profile_item">Age: <span>{{age}}</span></li>
+                <li class="profile_item" style="border-radius: 20px; font-weight: bold;">Email: <span style="font-weight: lighter;">{{email}}</span></li>
+                <li class="profile_item" style="border-radius: 20px; font-weight: bold;">Profile Worth: <span style="font-weight: lighter;">${{startingfinances}}</span></li>
+                <li class="profile_item" style="border-radius: 20px; font-weight: bold;">Age: <span style="font-weight: lighter;">{{age}}</span></li>
             </ul>
         </div>
         <div class="col-4">
