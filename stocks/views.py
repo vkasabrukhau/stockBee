@@ -117,13 +117,13 @@ def signup(request):
 
 @login_required
 def profile(request):
-    current_user = request.user
+    u = request.user
+    extendeduser = u.ExtendedUser
     return render(request, "stocks/profile.html", {
-        "id": current_user.id,
-        "firstname": current_user.first,
-        "username": current_user.name,
-        "email": current_user.email,
-        "age": current_user.ExtendedUser.age,
-        "datejoined": current_user.ExtendedUser.dateJoined,
-        "startingfinances": current_user.ExtendedUser.startingFinances,
+        "firstname": u.first_name,
+        "lastname": u.last_name,
+        "username": u.username,
+        "email": u.email,
+        "age": extendeduser.age,        
+        "startingfinances": extendeduser.startingFinance,
     })
