@@ -1,0 +1,31 @@
+{% extends "stocks/layout.html" %}
+{% load static %}
+{% block body %}
+    <div class="row">
+        <div class="col-6">
+            <img src="" alt="">
+            <span>Welcome back {{firstname}} {{lastname}}</span>
+            <ul>
+                <li class="profile_item">Email: <span>{{email}}</span></li>
+                <li class="profile_item">Profile Worth: <span>{{worth}}</span></li>
+                <li class="profile_item">Profile Original Worth: <span>{{ogworth}}</span></li>
+                <li class="profile_item">Net Change:
+                    {% if netchange > 0 %}
+                        <img src="{% static 'assets/greentriangle.png' %}" alt="" style="width: 20px;">
+                        <span style="color: green;">
+                            {{netchange}}$
+                        </span>
+                    {% elif 0 > netchange %}
+                        <img src="{% static 'assets/redtriangle.png' %}" alt="" style="width: 20px;">
+                        <span style="color: red;">
+                            {{netchange}}$
+                        </span>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+        <div class="col-4">
+
+        </div>
+    </div>
+{% endblock %}

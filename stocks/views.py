@@ -3,8 +3,9 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .models import Stock
+from .models import Stock, ExtendedUser
 from django import forms
 import yfinance as yf
 import datetime
@@ -49,6 +50,7 @@ def index(request):
         "last_prices": last_prices
     })
 
+@login_required
 def add(request):
     if request.method == 'POST':
         data = request.POST
@@ -82,6 +84,8 @@ def signup(request):
     if(request.method == 'POST'):
         firstName = request.POST['firstname']
         lastName = request.POST['lastname']
+        age = request.POST['age']
+        finances = request.POST['finances']
         username = request.POST['username']
         password = request.POST['password1']
         password2 = request.POST['password2']
@@ -95,15 +99,31 @@ def signup(request):
                 return redirect('signup')
             else:
                 user = User.objects.create_user(username = username, email = email, password = password)
+                extendedUser = ExtendedUser(user = user, age = age, startingFinance = finances)
+                extendedUser.save()
                 user.save()
                 user.first_name = firstName
                 user.last_name = lastName
+                user.date_joined = now
                 user.save()
                 user_login = authenticate(username = username, password = password)
-                login(request, user)
+                login(request, user_login)
                 return redirect('index')
         else:
             messages.info(request, 'Password Not Matching')
             return redirect('signup')
     else:
         return render(request, "stocks/signup.html")
+
+@login_required
+def profile(request):
+    current_user = request.user
+    return render(request, "stocks/profile.html", {
+        "id": current_user.id,
+        "firstname": current_user.first,
+        "username": current_user.name,
+        "email": current_user.email,
+        "age": current_user.ExtendedUser.age,
+        "datejoined": current_user.ExtendedUser.dateJoined,
+        "startingfinances": current_user.ExtendedUser.startingFinances,
+    })
